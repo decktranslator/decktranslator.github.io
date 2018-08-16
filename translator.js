@@ -15,8 +15,8 @@ function gen(){
 		if(card.length > 1){ //text length
 			card = card.replace(/^\s+/,'')
 			card = card.replace(/[’‘`ˊᐟ‵‵′]/,"'")
-			card = card.replace(/\[[A-Za-z]*\]/,'').replace(/^SB:\s*/,'')
-			card = card.replace(/\([A-Za-z]{3}\) \d+ ?$/,'')
+			card = card.replace(/\[[A-Za-z0-9]*\]/,'').replace(/^SB:\s*/,'')
+			card = card.replace(/\([A-Za-z0-9]{3}\) \d+ ?$/,'')
 			if (copy = card.match(/^(\d+\s*x)\s+(.+)/)){
 				card_copies = copy[1].replace(/\s*$/,' ')
 				card_name = copy[2].replace(/\s+$/,'')
