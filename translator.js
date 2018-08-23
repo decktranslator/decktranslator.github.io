@@ -1,8 +1,8 @@
 function gen(){
 	if (document.getElementById('button').classList.contains('button_o')){
-		return
+		return 
 	}
-	document.getElementById('button').classList.add('button_o')
+	document.getElementById('button').classList.add('button_o') //lock button during translation
 
 	lan_from = document.getElementById('langf').value
 	lan_to = document.getElementById('langt').value
@@ -12,11 +12,11 @@ function gen(){
 	}
 	out = ''
 	for (card of document.getElementById('input1').value.split('\n')){
-		if(card.length > 1){ //text length
-			card = card.replace(/^\s+/,'')
-			card = card.replace(/[’‘`ˊᐟ‵‵′]/,"'")
-			card = card.replace(/\[[A-Za-z0-9]*\]/,'').replace(/^SB:\s*/,'')
-			card = card.replace(/\([A-Za-z0-9]{3}\) \d+ ?$/,'')
+		if(card.length > 1){ //text is non-empty
+			card = card.replace(/^\s+/,'') //remove trailing spaces
+			card = card.replace(/[’‘`ˊᐟ‵‵′]/,"'") //repace non-standard quotation marks
+			card = card.replace(/\[[A-Za-z0-9]*\]/,'').replace(/^SB:\s*/,'') // remove set code(mtgtop8)
+			card = card.replace(/\([A-Za-z0-9]{3}\) \d+ ?$/,'')// remove set code(Arena)
 			if (copy = card.match(/^(\d+\s*x)\s+(.+)/)){
 				card_copies = copy[1].replace(/\s*$/,' ')
 				card_name = copy[2].replace(/\s+$/,'')
@@ -27,8 +27,8 @@ function gen(){
 				card_copies = ''
 				card_name = card.replace(/\s+$/,'')
 			}
-			if (split = card.match(/(\w+)\s*\/+\s*(\w+)/)){
-				out = out+card_copies+get_name(split[1])+" // " + get_name(split[2]) + "\n"
+			if (split = card.match(/([^\s]+)\s*\/+\s*([^\s]+)/)){
+				out = out+card_copies+get_name(split[1])+" // " + get_name(split[2]) + "\n" //split card
 			}else{
 				out = out+card_copies+get_name(card_name)+"\n"
 			}	
@@ -37,7 +37,7 @@ function gen(){
 			out += "\n"
 		}
 	}
-  	document.getElementById('input1').value = out.replace(/\n+$/,'')
+  	document.getElementById('input1').value = out.replace(/\n+$/,'')//remove trailing empty line
   	document.getElementById('button').classList.remove('button_o')
 	
 
